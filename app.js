@@ -6,6 +6,7 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi, CelebrateError } = require('celebrate');
 const validator = require('validator');
+const cors = require('cors');
 require('dotenv').config();
 
 const usersRouter = require('./routes/users.js');
@@ -22,6 +23,7 @@ const limiter = rateLimit({
   max: 100
 });
 
+app.use(cors());
 app.use(cookieParser());
 app.use(limiter);
 app.use(bodyParser.json());
