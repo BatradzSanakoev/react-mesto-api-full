@@ -23,7 +23,18 @@ const limiter = rateLimit({
   max: 100
 });
 
-app.use(cors());
+const whitelist = ['https://bato7.students.nomoreparties.space/sign-in', 'https://www.bato7.students.nomoreparties.space/sign-in'];
+const corsOptions = {
+  origin: (origin, callback) => {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
+
+app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(limiter);
 app.use(bodyParser.json());
