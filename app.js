@@ -4,6 +4,8 @@ const rateLimit = require('express-rate-limit');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
+const { celebrate, Joi, CelebrateError } = require('celebrate');
+const validator = require('validator');
 require('dotenv').config();
 
 const usersRouter = require('./routes/users.js');
@@ -11,6 +13,7 @@ const cardsRouter = require('./routes/cards.js');
 const { login, createUser } = require('./controllers/user.js');
 const auth = require('./middlewares/auth.js');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const NotFoundError = require('./errors/NotFoundError');
 
 const { PORT = 3000 } = process.env;
 const app = express();
@@ -31,15 +34,35 @@ app.get('/crash-test', () => {
   }, 0);
 });
 
-app.post('/signin', login);
-app.post('/signup', createUser);
+app.post('/signin', celebrate({
+  body: Joi.object().keys({
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8)
+  })
+}), login);
+
+app.post('/signup', celebrate({
+  body: Joi.object().keys({
+    name: Joi.string().required().min(2).max(30),
+    about: Joi.string().required().min(2).max(30),
+    avatar: Joi.string().required().custom((url) => {
+      if (!validator.isURL(url)) {
+        throw new CelebrateError('Неверно введенный URL');
+      }
+      return url;
+    }),
+    email: Joi.string().required().email(),
+    password: Joi.string().required().min(8)
+  })
+}), createUser);
 
 app.use(auth);
 
 app.use('/', usersRouter);
 app.use('/', cardsRouter);
-app.all('/*', (req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
+// eslint-disable-next-line no-unused-vars
+app.all('/*', (req, res, next) => {
+  throw new NotFoundError({ message: 'Запрашиваемый ресурс не найден' });
 });
 
 app.use(errorLogger);

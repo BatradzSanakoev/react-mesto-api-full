@@ -1,6 +1,7 @@
 const Card = require('../models/card');
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
+const ForbiddenError = require('../errors/ForbiddenError');
 
 module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
@@ -10,6 +11,9 @@ module.exports.createCard = (req, res, next) => {
         throw new BadRequestError('Переданы некорректные данные!');
       }
       res.send(card);
+    })
+    .catch((err) => {
+      throw new BadRequestError(`Переданы некорректные данные! ${err}`);
     })
     .catch(next);
 };
@@ -28,6 +32,9 @@ module.exports.getCards = (req, res, next) => {
 module.exports.deleteCard = (req, res, next) => {
   Card.findByIdAndRemove(req.params._id)
     .then((card) => {
+      if (card.owner.toString() !== req.user._id) {
+        throw new ForbiddenError('Вы не можете удалить чужую карточку!');
+      }
       if (!card) {
         throw new NotFoundError('Данные не найдены!');
       }

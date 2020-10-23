@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable object-curly-newline */
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -6,6 +7,7 @@ const User = require('../models/user');
 const NotFoundError = require('../errors/NotFoundError');
 const BadRequestError = require('../errors/BadRequestError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const ConflictError = require('../errors/ConflictError');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
@@ -35,11 +37,17 @@ module.exports.createUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
   bcrypt.hash(password.toString(), 10)
     .then((hash) => User.create({ name, about, avatar, email, password: hash }))
+    .catch((err) => {
+      console.log(err);
+      if (err._message === 'user validation failed') {
+        throw new ConflictError('Пользователь с таким электронным ящиком уже зарегистрирован');
+      } else next(err);
+    })
     .then((newUser) => {
       if (!newUser) {
         throw new BadRequestError('Переданы некорректные данные!');
       }
-      res.send(newUser);
+      res.send({ name: newUser.name, about: newUser.about, avatar: newUser.avatar, email: newUser.email });
     })
     .catch(next);
 };
