@@ -24,10 +24,10 @@ const limiter = rateLimit({
 });
 
 const whitelist = [
-  'https://bato7.students.nomoreparties.space/sign-in',
-  'https://www.bato7.students.nomoreparties.space/sign-in',
-  'https://api.bato7.students.nomoreparties.space/signin',
-  'https://www.api.bato7.students.nomoreparties.space/signin'
+  'http://bato7.students.nomoreparties.space/sign-in',
+  'http://www.bato7.students.nomoreparties.space/sign-in',
+  'http://api.bato7.students.nomoreparties.space/signin',
+  'http://www.api.bato7.students.nomoreparties.space/signin'
 ];
 const corsOptions = {
   origin: (origin, callback) => {
