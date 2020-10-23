@@ -27,5 +27,6 @@ login
   "about": "student", 
   ---
   "avatar": "https://images.unsplash.com/photo-1601758066440-cbfc06a82914?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
+  ---
 
 
