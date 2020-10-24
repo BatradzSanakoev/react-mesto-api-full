@@ -6,7 +6,7 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi, CelebrateError } = require('celebrate');
 const validator = require('validator');
-const cors = require('cors');
+// const cors = require('cors');
 require('dotenv').config();
 
 const usersRouter = require('./routes/users.js');
@@ -23,24 +23,33 @@ const limiter = rateLimit({
   max: 100
 });
 
-const whitelist = [
-  'https://bato7.students.nomoreparties.space/sign-in',
-  'https://www.bato7.students.nomoreparties.space/sign-in',
-  'https://api.bato7.students.nomoreparties.space/signin',
-  'https://www.api.bato7.students.nomoreparties.space/signin'
-];
-const corsOptions = {
-  origin: (origin, callback) => {
-    console.log(origin, whitelist, whitelist.indexOf(origin));
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-};
+// const whitelist = [
+//   'https://bato7.students.nomoreparties.space/sign-in',
+//   'https://www.bato7.students.nomoreparties.space/sign-in',
+//   'https://api.bato7.students.nomoreparties.space/signin',
+//   'https://www.api.bato7.students.nomoreparties.space/signin'
+// ];
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     console.log(origin, whitelist, whitelist.indexOf(origin));
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   }
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
+
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", '*');
+  res.header("Access-Control-Allow-Credentials", true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header("Access-Control-Allow-Headers", 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+  next();
+});
+
 app.use(cookieParser());
 app.use(limiter);
 app.use(bodyParser.json());
