@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi, CelebrateError } = require('celebrate');
-const validator = require('validator');
+// const validator = require('validator');
 // const cors = require('cors');
 require('dotenv').config();
 
