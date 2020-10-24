@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const express = require('express');
 const mongoose = require('mongoose');
 const rateLimit = require('express-rate-limit');
@@ -24,10 +25,10 @@ const limiter = rateLimit({
 });
 
 const whitelist = [
-  'https://bato13.students.nomoreparties.space',
-  'https://www.bato13.students.nomoreparties.space',
-  'https://api.bato13.students.nomoreparties.space',
-  'https://www.api.bato13.students.nomoreparties.space'
+  'https://batr13.students.nomoreparties.space',
+  'https://www.batr13.students.nomoreparties.space',
+  'https://api.batr13.students.nomoreparties.space',
+  'https://www.api.batr13.students.nomoreparties.space'
 ];
 const corsOptions = {
   origin: (origin, callback) => {
