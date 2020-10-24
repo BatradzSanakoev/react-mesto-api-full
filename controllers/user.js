@@ -34,13 +34,13 @@ module.exports.getUser = (req, res, next) => {
 };
 
 module.exports.createUser = (req, res, next) => {
-  const { name, about, avatar, email, password } = req.body;
+  const { email, password } = req.body;
   bcrypt.hash(password.toString(), 10)
-    .then((hash) => User.create({ name, about, avatar, email, password: hash }))
+    .then((hash) => User.create({ name: 'Bat', about: 'Info', avatar: 'https://ya.ru', email, password: hash }))
     .catch((err) => {
       console.log(err);
       if (err._message === 'user validation failed') {
-        throw new ConflictError('Пользователь с таким электронным ящиком уже зарегистрирован');
+        throw new ConflictError('Пользователь с таким электронным ящиком уже зарегистрирован или неправильно введен пароль!');
       } else next(err);
     })
     .then((newUser) => {

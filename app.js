@@ -71,16 +71,22 @@ app.post('/signin', celebrate({
 
 app.post('/signup', celebrate({
   body: Joi.object().keys({
-    name: Joi.string().required().min(2).max(30),
-    about: Joi.string().required().min(2).max(30),
-    avatar: Joi.string().required().custom((url) => {
-      if (!validator.isURL(url)) {
-        throw new CelebrateError('Неверно введенный URL');
-      }
-      return url;
-    }),
+    // name: Joi.string().required().min(2).max(30),
+    // about: Joi.string().required().min(2).max(30),
+    // avatar: Joi.string().required().custom((url) => {
+    //   if (!validator.isURL(url)) {
+    //     throw new CelebrateError('Неверно введенный URL');
+    //   }
+    //   return url;
+    // }),
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(8)
+    password: Joi.string().required().min(8).custom((pass) => {
+      const regex = /^\S*$/;
+      if (!regex.test(pass)) {
+        throw new CelebrateError('Неверно введенный пароль');
+      }
+      return pass;
+    })
   })
 }), createUser);
 
