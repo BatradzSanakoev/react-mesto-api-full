@@ -2,14 +2,17 @@
 Репозиторий для полноценного API проекта Mesto, включающий авторизацию и регистрацию пользователей, операции с карточками и пользователями.  
 Пожалуйста, прикрепите в это описание ссылку на репозиторий с готовым React-приложением, использующим этот API и ссылку на сайт, размещенный на Яндекс.Облаке.
 
-http://www.bato7.students.nomoreparties.space/ 
+
+Небольшое примечаение: На моем ноуте почему-то не получалось перейти со страницы авторизации на основную, решалось так: открывалась пока в браузере страница https://api... и только потом уже https://sb13... , если возникнут при проверке работы такие же проблемы, то попробуйте сделать также. Спасибо.
 ---
-http://bato7.students.nomoreparties.space/ 
+https://www.sb13.students.nomoreparties.xyz/ 
+---
+https://sb13.students.nomoreparties.xyz/ 
 ---
 
-http://api.bato7.students.nomoreparties.space/ 
+https://api.sb13.students.nomoreparties.xyz/ 
 ---
-http://www.api.bato7.students.nomoreparties.space/ 
+https://www.api.sb13.students.nomoreparties.xyz/ 
 ---
 
 84.201.148.185 
