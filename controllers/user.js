@@ -91,6 +91,7 @@ module.exports.login = (req, res, next) => {
       })
         // .send({ message: 'Авторизация прошла успешно!' });
         .send({ data: user });
+      return user;
     })
     .catch(next);
 };
