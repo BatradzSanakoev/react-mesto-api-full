@@ -28,7 +28,8 @@ const whitelist = [
   'https://sb13.students.nomoreparties.xyz',
   'https://www.sb13.students.nomoreparties.xyz',
   'https://api.sb13.students.nomoreparties.xyz',
-  'https://www.api.sb13.students.nomoreparties.xyz'
+  'https://www.api.sb13.students.nomoreparties.xyz',
+  'https://varankin.students.nomoreparties.co'
 ];
 const corsOptions = {
   origin: (origin, callback) => {
