@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi, CelebrateError } = require('celebrate');
 // const validator = require('validator');
-// const cors = require('cors');
+const cors = require('cors');
 require('dotenv').config();
 
 const usersRouter = require('./routes/users.js');
@@ -24,32 +24,32 @@ const limiter = rateLimit({
   max: 100
 });
 
-// const whitelist = [
-//   'https://sb13.students.nomoreparties.xyz',
-//   'https://www.sb13.students.nomoreparties.xyz',
-//   'https://api.sb13.students.nomoreparties.xyz',
-//   'https://www.api.sb13.students.nomoreparties.xyz'
-// ];
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     console.log(origin, whitelist, whitelist.indexOf(origin));
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   }
-// };
+const whitelist = [
+  'https://sb13.students.nomoreparties.xyz',
+  'https://www.sb13.students.nomoreparties.xyz',
+  'https://api.sb13.students.nomoreparties.xyz',
+  'https://www.api.sb13.students.nomoreparties.xyz'
+];
+const corsOptions = {
+  origin: (origin, callback) => {
+    console.log(origin, whitelist, whitelist.indexOf(origin));
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+};
 
-// app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'https://sb13.students.nomoreparties.xyz');
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', 'https://sb13.students.nomoreparties.xyz');
+//   res.header('Access-Control-Allow-Credentials', true);
+//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+//   res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+//   next();
+// });
 
 app.use(cookieParser());
 app.use(limiter);
