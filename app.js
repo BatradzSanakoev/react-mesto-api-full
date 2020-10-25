@@ -7,7 +7,7 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { celebrate, Joi, CelebrateError } = require('celebrate');
 // const validator = require('validator');
-const cors = require('cors');
+// const cors = require('cors');
 require('dotenv').config();
 
 const usersRouter = require('./routes/users.js');
@@ -41,7 +41,7 @@ const limiter = rateLimit({
 //   }
 // };
 
-app.use(cors());
+// app.use(cors(corsOptions));
 
 // app.use((req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', 'https://sb13.students.nomoreparties.xyz');
