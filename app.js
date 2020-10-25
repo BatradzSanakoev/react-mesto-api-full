@@ -25,10 +25,10 @@ const limiter = rateLimit({
 });
 
 const whitelist = [
-  'http://sb13.students.nomoreparties.xyz',
-  'http://www.sb13.students.nomoreparties.xyz',
-  'http://api.sb13.students.nomoreparties.xyz',
-  'http://www.api.sb13.students.nomoreparties.xyz'
+  'https://sb13.students.nomoreparties.xyz',
+  'https://www.sb13.students.nomoreparties.xyz',
+  'https://api.sb13.students.nomoreparties.xyz',
+  'https://www.api.sb13.students.nomoreparties.xyz'
 ];
 const corsOptions = {
   origin: (origin, callback) => {
