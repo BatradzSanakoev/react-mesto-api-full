@@ -32,26 +32,19 @@ const whitelist = [
   'https://varankin.students.nomoreparties.co',
   'http://localhost:3000'
 ];
-// const corsOptions = {
-//   origin: (origin, callback) => {
-//     console.log(origin, whitelist, whitelist.indexOf(origin));
-//     if (whitelist.indexOf(origin) !== -1) {
-//       callback(null, true);
-//     } else {
-//       callback(new Error('Not allowed by CORS'));
-//     }
-//   }
-// };
+const corsOptions = {
+  origin: (origin, callback) => {
+    console.log(origin, whitelist, whitelist.indexOf(origin));
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true
+};
 
-// app.use(cors(corsOptions));
-app.options('*', cors());
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
-  res.header('Access-Control-Allow-Credentials', true);
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-  next();
-});
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(limiter);
