@@ -23,7 +23,7 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 100
 });
-console.log('Backend');
+
 const whitelist = [
   'https://sb13.students.nomoreparties.xyz',
   'https://www.sb13.students.nomoreparties.xyz',
