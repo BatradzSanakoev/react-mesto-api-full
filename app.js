@@ -24,6 +24,8 @@ const limiter = rateLimit({
   max: 100
 });
 
+app.use(cookieParser());
+
 const whitelist = [
   'https://sb13.students.nomoreparties.xyz',
   'https://www.sb13.students.nomoreparties.xyz',
@@ -53,7 +55,7 @@ app.use(cors(corsOptions));
 //   next();
 // });
 
-app.use(cookieParser());
+// app.use(cookieParser());
 app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
