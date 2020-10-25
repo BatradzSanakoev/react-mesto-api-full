@@ -24,24 +24,26 @@ const limiter = rateLimit({
   max: 100
 });
 
-const whitelist = [
-  'https://sb13.students.nomoreparties.xyz',
-  'https://www.sb13.students.nomoreparties.xyz',
-  'https://api.sb13.students.nomoreparties.xyz',
-  'https://www.api.sb13.students.nomoreparties.xyz'
-];
-const corsOptions = {
-  origin: (origin, callback) => {
-    console.log(origin, whitelist, whitelist.indexOf(origin));
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-};
+app.options('*', cors());
 
-app.use(cors(corsOptions));
+// const whitelist = [
+//   'https://sb13.students.nomoreparties.xyz',
+//   'https://www.sb13.students.nomoreparties.xyz',
+//   'https://api.sb13.students.nomoreparties.xyz',
+//   'https://www.api.sb13.students.nomoreparties.xyz'
+// ];
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     console.log(origin, whitelist, whitelist.indexOf(origin));
+//     if (whitelist.indexOf(origin) !== -1 || !origin) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   }
+// };
+
+// app.use(cors(corsOptions));
 
 // app.use((req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', 'https://sb13.students.nomoreparties.xyz');
