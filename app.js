@@ -24,8 +24,6 @@ const limiter = rateLimit({
   max: 100
 });
 
-app.use(cookieParser());
-
 const whitelist = [
   'https://sb13.students.nomoreparties.xyz',
   'https://www.sb13.students.nomoreparties.xyz',
@@ -34,28 +32,28 @@ const whitelist = [
   'https://varankin.students.nomoreparties.co',
   'http://localhost:3000'
 ];
-const corsOptions = {
-  origin: (origin, callback) => {
-    console.log(origin, whitelist, whitelist.indexOf(origin));
-    if (whitelist.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-};
+// const corsOptions = {
+//   origin: (origin, callback) => {
+//     console.log(origin, whitelist, whitelist.indexOf(origin));
+//     if (whitelist.indexOf(origin) !== -1) {
+//       callback(null, true);
+//     } else {
+//       callback(new Error('Not allowed by CORS'));
+//     }
+//   }
+// };
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', 'https://sb13.students.nomoreparties.xyz');
-//   res.header('Access-Control-Allow-Credentials', true);
-//   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-//   res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
-//   next();
-// });
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', whitelist);
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin,X-Requested-With,Content-Type,Accept,content-type,application/json');
+  next();
+});
 
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(limiter);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
