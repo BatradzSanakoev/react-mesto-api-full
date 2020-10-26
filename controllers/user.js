@@ -23,6 +23,8 @@ module.exports.getUsers = (req, res, next) => {
 };
 
 module.exports.getUser = (req, res, next) => {
+  console.log(req.params);
+  console.log(req);
   User.findById(req.params._id)
     .then((user) => {
       if (!user) {
