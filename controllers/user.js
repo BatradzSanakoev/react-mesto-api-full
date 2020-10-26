@@ -38,7 +38,7 @@ module.exports.getUser = (req, res, next) => {
 module.exports.createUser = (req, res, next) => {
   const { email, password } = req.body;
   bcrypt.hash(password.toString(), 10)
-    .then((hash) => User.create({ name: 'Bat', about: 'Info', avatar: 'https://ya.ru', email, password: hash }))
+    .then((hash) => User.create({ name: 'Batradz', about: "Ya.Praktikum's student", avatar: 'https://images.unsplash.com/photo-1577170827381-e2c4e552bf9d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=600&q=60', email, password: hash }))
     .catch((err) => {
       console.log(err);
       if (err._message === 'user validation failed') {
