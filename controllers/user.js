@@ -84,12 +84,13 @@ module.exports.login = (req, res, next) => {
         throw new UnauthorizedError('Авторизация завершилась неудачно!');
       }
       const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret', { expiresIn: '7d' });
-      res.cookie('jwt', token, {
-        maxAge: 3600000 * 24 * 7,
-        httpOnly: true,
-        sameSite: 'Lax'
-      })
-        .send({ message: 'Авторизация прошла успешно!' });
+      // res.cookie('jwt', token, {
+      //   maxAge: 3600000 * 24 * 7,
+      //   httpOnly: true,
+      //   sameSite: 'Lax'
+      // })
+      //   .send({ message: 'Авторизация прошла успешно!' });
+      res.send({ token });
     })
     .catch(next);
 };
