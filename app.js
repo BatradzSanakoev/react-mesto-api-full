@@ -111,13 +111,3 @@ mongoose.connect('mongodb://localhost:27017/mestodb', {
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
-
-/*
-{
-  "email": "sanakoev.batraz@yandex.ru",
-  "password": "1234",
-  "name": "batradz",
-  "about": "student",
-  "avatar": "https://images.unsplash.com/photo-1601758066440-cbfc06a82914?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1350&q=80"
-}
-*/
